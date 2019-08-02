@@ -5,12 +5,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FSRoot childNodes={[
+        <FSRoot children={[
           { name: 'file' },
           { name: 'added file', mode: 'a' },
           { name: 'deleted file', mode: 'd' },
           { name: 'modified file', mode: 'm' },
-          { name: 'folder', childNodes: [
+          { name: 'folder', children: [
             { name: 'foo' },
             { name: 'bar' },
             { name: 'baz' },

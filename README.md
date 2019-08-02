@@ -11,12 +11,12 @@ import React from 'react'
 import FSRoot from 'react-fs-tree'
 
 const FSTree = () => (
-  <FSRoot childNodes={[
+  <FSRoot children={[
     { name: 'file' },
     { name: 'added file', mode: 'a' },
     { name: 'deleted file', mode: 'd' },
     { name: 'modified file', mode: 'm' },
-    { name: 'folder', childNodes: [
+    { name: 'folder', children: [
       { name: 'foo' },
       { name: 'bar' },
       { name: 'baz' },
@@ -38,7 +38,7 @@ const onOpen = (node) => {
   console.log(`node ${node.path} opened`)
 }
 
-<FSRoot onSelect={onSelect} onOpen={onOpen} childNodes={[
+<FSRoot onSelect={onSelect} onOpen={onOpen} children={[
   // ...
 ]} />
 ```
@@ -77,7 +77,7 @@ You can also ask for any of its details, like...
 
 - **node.path** - The full path of the node starting from the root e.g. `~/folder/foo`.
 
-- **node.childNodes** - An array of the direct children of the node.
+- **node.children** - An array of the direct children of the node.
 
 - **node.parentNode** - The parent of the node.
 

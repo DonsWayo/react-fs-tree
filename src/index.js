@@ -11,7 +11,7 @@ export const FSNode = exports.FSNode
 
 export class FSRoot extends React.Component {
   static propTypes = {
-    childNodes: PropTypes.arrayOf(PropTypes.shape(Shapes.node)),
+    children: PropTypes.arrayOf(PropTypes.shape(Shapes.node)),
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -31,8 +31,8 @@ export class FSRoot extends React.Component {
     return this.props.noninteractive
   }
 
-  get childNodes() {
-    return this._childNodes
+  get children() {
+    return this._children
   }
 
   get path() {
@@ -43,11 +43,11 @@ export class FSRoot extends React.Component {
     super(props)
 
     this._path = '~'
-    this._childNodes = []
+    this._children = []
   }
 
   componentWillUpdate() {
-    this._childNodes = []
+    this._children = []
   }
 
   render() {
@@ -176,7 +176,7 @@ export class FSRoot extends React.Component {
         ` }} />
         <FSBranch
           {...this.props}
-          ref={ref => ref && (this._childNodes = ref._childNodes)}
+          ref={ref => ref && (this._children = ref._children)}
           parentNode={this}
           root={this}
         />

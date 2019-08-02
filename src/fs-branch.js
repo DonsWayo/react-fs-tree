@@ -6,7 +6,7 @@ import Shapes from './shapes'
 
 class FSBranch extends React.Component {
   static propTypes = {
-    childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
+    children: PropTypes.arrayOf(Shapes.Node).isRequired,
     parentNode: PropTypes.instanceOf(React.Component).isRequired,
     root: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
@@ -46,8 +46,8 @@ class FSBranch extends React.Component {
     return this.props.noninteractive
   }
 
-  get childNodes() {
-    return [...this._childNodes]
+  get children() {
+    return [...this._children]
   }
 
   get path() {
@@ -58,21 +58,21 @@ class FSBranch extends React.Component {
     super(props)
 
     this._path = props.parentNode._path + '/'
-    this._childNodes = []
+    this._children = []
   }
 
   componentWillUpdate() {
-    this._childNodes = []
+    this._children = []
   }
 
   render() {
     return (
       <div className="FSBranch">
         <ul className="FSBranch-node-list">
-          {this.props.childNodes.map((node, i) => (
+          {this.props.children.map((node, i) => (
             <li key={`${i}_${node.name}`} className="FSBranch-node-list-item">
               <exports.FSNode
-                ref={ref => ref && this._childNodes.push(ref)}
+                ref={ref => ref && this._children.push(ref)}
                 node={node}
                 branch={this}
                 parentNode={this.props.parentNode}

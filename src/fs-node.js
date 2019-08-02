@@ -54,12 +54,12 @@ class FSNode extends React.Component {
     return this.props.noninteractive
   }
 
-  get childNodes() {
-    return [...this._childNodes]
+  get children() {
+    return [...this._children]
   }
 
   get branchedOut() {
-    return !!this.state.node.childNodes
+    return !!this.state.node.children
   }
 
   get path() {
@@ -82,14 +82,14 @@ class FSNode extends React.Component {
     super(props)
 
     this._path = props.branch._path + props.node.name
-    this._childNodes = []
+    this._children = []
 
     this.state = {
       node: props.node
     }
 
     if (props.virtual) {
-      this._createVirtualChildNodes()
+      this._createVirtualchildren()
     }
   }
 
@@ -98,12 +98,12 @@ class FSNode extends React.Component {
   }
 
   componentWillUpdate() {
-    this._childNodes = []
+    this._children = []
   }
 
   componentDidUpdate() {
     if (!this.state.opened) {
-      this._createVirtualChildNodes()
+      this._createVirtualchildren()
     }
   }
 
@@ -120,10 +120,10 @@ class FSNode extends React.Component {
               <div className="FSNode-icon" onClick={!this.props.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
               <div className="FSNode-text" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this.state.node.name}</div>
             </div>
-            {this.state.node.childNodes && this.state.node.opened && (
+            {this.state.node.children && this.state.node.opened && (
               <exports.FSBranch
-                ref={ref => ref && (this._childNodes = ref._childNodes)}
-                childNodes={this.state.node.childNodes}
+                ref={ref => ref && (this._children = ref._children)}
+                children={this.state.node.children}
                 parentNode={this}
                 root={this.props.root}
                 depth={this.props.depth}
@@ -213,7 +213,7 @@ class FSNode extends React.Component {
       return resolve(this)
     }
 
-    if (!this.state.node.childNodes) return callback()
+    if (!this.state.node.children) return callback()
     if (!this.state.node.opened) return callback()
 
     return new Promise((resolve) => {
@@ -236,7 +236,7 @@ class FSNode extends React.Component {
       return resolve(this)
     }
 
-    if (!this.state.node.childNodes) return callback()
+    if (!this.state.node.children) return callback()
     if (this.state.node.opened) return callback()
 
     return new Promise((resolve) => {
@@ -263,7 +263,7 @@ class FSNode extends React.Component {
   _getDepthSize = (depth = this.depth) => {
     let padding = 23 * depth
 
-    if (!this.state.node.childNodes) {
+    if (!this.state.node.children) {
       padding += 14
     }
 
@@ -287,7 +287,7 @@ class FSNode extends React.Component {
   }
 
   _getIcon = () => {
-    if (!this.state.node.childNodes) {
+    if (!this.state.node.children) {
       switch (this.state.node.mode) {
         case 'a': return (
           <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
@@ -324,10 +324,10 @@ class FSNode extends React.Component {
     )
   }
 
-  _createVirtualChildNodes() {
-    if (!this.state.node.childNodes) return
+  _createVirtualchildren() {
+    if (!this.state.node.children) return
 
-    this.state.node.childNodes.forEach((node) => {
+    this.state.node.children.forEach((node) => {
       const ref = new FSNode({
         node,
         virtual: true,
@@ -344,7 +344,7 @@ class FSNode extends React.Component {
         onOpenChange: this.props.onOpenChange,
       })
 
-      this._childNodes.push(ref)
+      this._children.push(ref)
     })
   }
 }

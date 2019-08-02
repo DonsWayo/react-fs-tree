@@ -8,7 +8,7 @@ export const Node = (() => {
     mode: PropTypes.oneOf(['a', 'd', 'm']),
   }
 
-  shape.childNodes = PropTypes.arrayOf(PropTypes.shape(shape))
+  shape.children = PropTypes.arrayOf(PropTypes.shape(shape))
 
   return PropTypes.shape(shape)
 })()
